@@ -1,0 +1,9 @@
+<agm-map [latitude]="drawSpotsJSON[0].polygon[0].lat" [longitude]="drawSpotsJSON[0].polygon[0].lng" [zoom]=19>
+  <agm-marker [latitude]="53.904946580284076" [longitude]="27.43159748128494">
+  </agm-marker>
+  <ng-container *ngFor="let rect of drawSpotsJSON">
+    <agm-polygon [paths]="rect.polygon" [strokeColor]=rect.borderColor [fillColor]=rect.color [fillOpacity]="0.5" [visible]="true"
+                 [zIndex]="999">
+    </agm-polygon>
+  </ng-container>
+</agm-map>

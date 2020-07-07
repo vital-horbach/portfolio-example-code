@@ -1,0 +1,108 @@
+<nb-card>
+  <nb-card-body [nbSpinner]="isLoading">
+    <div class="row">
+      <label class="col-form-label col-sm-1" for="country">Country</label>
+      <div class="col-xl-5 col-sm-12" id="country">
+        <ng-select (change)="onSelectedChanged($event)" name="parking" [(ngModel)]="searchObj.country">
+          <ng-option [value]="null">All</ng-option>
+          <ng-option *ngFor="let country of parkingCountries"
+                     [value]="country">{{getCountryNameByCode(country)}}</ng-option>
+        </ng-select>
+      </div>
+      <label for="city" class="col-form-label col-sm-1">City</label>
+      <div class="col-xl-5 col-sm-12" id="city">
+        <ng-select (change)="onSelectedChanged(searchObj.country, $event)" name="city" [(ngModel)]="searchObj.city">
+          <ng-option [value]="null">All</ng-option>
+          <ng-option *ngFor="let city of parkingCities"
+                     [value]="city">{{city}}</ng-option>
+        </ng-select>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <label class="col-form-label col-sm-1" for="street">Street</label>
+      <div class="col-sm-12 col-xl-5">
+        <ng-select id="street" (change)="onSelectedChanged(searchObj.country, searchObj.city, $event)" name="street"
+                   [(ngModel)]="searchObj.address">
+          <ng-option [value]="null">All</ng-option>
+          <ng-option *ngFor="let address of parkingStreets"
+                     [value]="address">{{address}}</ng-option>
+        </ng-select>
+      </div>
+      <label *ngIf="searchObj.address" for="cameras" class="col-form-label col-sm-1">Cameras</label>
+      <div *ngIf="searchObj.address" class="col-sm-12 col-xl-5">
+        <nb-select fullWidth class="" id="cameras" required [(ngModel)]="searchObj.cameraId"
+                   name="cameraId">
+          <nb-option [value]="null">All</nb-option>
+          <nb-option
+            *ngFor="let cameraId of cameraIds" [value]="cameraId">{{cameraId}}</nb-option>
+        </nb-select>
+      </div>
+
+      <label *ngIf="!searchObj.address" for="cameraId" class="col-form-label col-sm-1">Id</label>
+      <div *ngIf="!searchObj.address" class="col-sm-12 col-xl-5">
+        <input nbInput fullWidth id="cameraId" required [(ngModel)]="searchObj.cameraId"
+               name="cameraId">
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <label class="col-form-label col-xl-1">Date</label>
+      <div class="col-xl-5 col-sm-12">
+        <ngx-rangepicker-showcase (getPeriodDate)="getPeriodDate($event)"></ngx-rangepicker-showcase>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <label class="col-form-label col-sm-1">Time</label>
+      <div class="col-sm-11">
+        <ngx-timepicker-complaint (getPeriodTime)="getPeriodTime($event)"></ngx-timepicker-complaint>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <label for="complaintsProblem" class="col-form-label col-sm-1">Problems</label>
+      <div class="col-xl-5 col-sm-12" id="complaintsProblem">
+        <nb-select fullWidth class="btn-block mainOptionSelect" [(ngModel)]="complaintsProblem"
+                   placeholder="All complaints">>
+          <nb-option [value]="null" class="mainOptionSelect" placeholder="All complaints">All complaints</nb-option>
+          <nb-option [value]="'without-problems'" class="mainOptionSelect">Without problems</nb-option>
+          <nb-option *ngFor="let complaintsProblem of complaintsProblems" [value]="complaintsProblem.key"
+          >{{complaintsProblem.value}}
+          </nb-option>
+        </nb-select>
+      </div>
+      <div id="countDiv" class="col-xl-6 col-sm-12">
+        <div class="row">
+          <label class="col-form-label col-3">Number found </label>
+          <div class="col-form-label col-3 font-weight-bold">
+            {{source.count()}}
+          </div>
+          <label for="countOnPage" class="col-form-label col-3">Count on page</label>
+          <div class="col-3" id="countOnPage">
+            <nb-select fullWidth [(ngModel)]="countOnPage">
+              <nb-option *ngFor="let count of countElementList" [value]="count">{{count}}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="offset-sm-1 col-sm-11 mt-5">
+        <button nbButton status="primary" (click)="search()">Search</button>
+        <button nbButton status="primary" class="mx-2" (click)="navigateProblemsPage()">Complaints Problems</button>
+        <button nbButton status="danger" class="mx-2 del-button" (click)="deleteForCameras()" *ngIf="parking">Delete
+        </button>
+        <button status="success" [disabled]="isLoading" nbButton [nbSpinner]="isLoading" nbSpinnerStatus="success"
+                nbSpinnerSize="large" nbSpinnerMessage="" (click)="downloadSnapshots()" class="mx-2"
+                id="downLoadLink" href="#" target="_blank" *ngIf="parking">Download
+        </button>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+<nb-card>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source"
+                     (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
+  </nb-card-body>
+</nb-card>

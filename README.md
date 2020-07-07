@@ -16,7 +16,7 @@ In this repo you can find examples of my code from various platforms and framewo
     - router (on Express)
     - desktop application (Electron JS)
 
-#### AWS
+#### I constantly work with such AWS services
 
     - EC2 instances
     - AMIs

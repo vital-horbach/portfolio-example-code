@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fix wrong spot</title>
+
+    <link href="style.css" rel="stylesheet">
+
+    <script src="canvas.min.js"></script>
+    <script src="jszip.min.js"></script>
+    <script src="filesaver.min.js"></script>
+</head>
+<body>
+<div class="container" id="container">
+    <div class="right" id="right">
+        <canvas id="canvas"></canvas>
+    </div>
+</div>
+<div id="help" class="help">
+    <h1>Hot keys</h1>
+    <ul>
+        <li>'F1' - Help</li>
+        <li>Изображения пролистываются кнопками "лево"-"право", сохраняя координаты bboxes последней картинки</li>
+        <li>'P' - переносит координаты bboxes из памяти на текущее изображение</li>
+        <li>'Q' - рисует горизонтальные линии по левым грамям bboxes</li>
+        <li>'W' - рисует горизонтальные линии по правым грамям bboxes</li>
+        <li>'R', 'Del', 'Backspace' - удаляют выбранный bbox</li>
+        <li>'C' - удаляет все bboxes с текущего изображения</li>
+        <li>'Z' - заливает bboxes одним цветом</li>
+        <li>'X' - заливает все изображение вокруг bboxes одним цветом</li>
+        <li>При зажатой 'стрелка вверх' - заливает bboxes одним цветом</li>
+        <li>При зажатой 'стрелка вниз' - заливает все изображение вокруг bboxes одним цветом</li>
+    </ul>
+</div>
+<script src="./index.js"></script>
+</body>
+</html>

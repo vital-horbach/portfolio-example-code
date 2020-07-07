@@ -14,7 +14,6 @@ In this repo you can find examples of my code from various platforms and framewo
 
     - business logic class (with MongoDB queries)
     - router (on Express)
-    - middleware (Express)
     - desktop application (Electron JS)
 
 #### AWS
